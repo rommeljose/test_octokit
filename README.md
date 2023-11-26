@@ -5,7 +5,7 @@ Una manera rápida de compartir un código almacenado en un repositorio GitHub p
 Leer el código en línea es mucho más conveniente que descargar un archivo zip para un tercero.
 La función AWS Lambda creada junto con la API asociada, envía una invitación para que un usuario GitHub pueda acceder a un repositorio privado.
 
-# Como usar AWS Lambda con Node y Octokit:
+# Como usar [AWS Lambda](https://aws.amazon.com/es/lambda/?nc2=h_ql_prod_cp_lbd) con Node y Octokit:
 
 <img  src="imagenes/diagrama_Lambda.png" align="right" border="1" width="400" height="240">
 
@@ -61,11 +61,13 @@ i) Edite el script para el proyecto Nodejs y Deploy:
 
 	La función Lambda debe de estar lista para su uso.
 
-j) Deploy y verifique la Api desde postman, la Api debe de incluri los parámetros requeridos por la Lambda:
+j) Deploy y verifique la Api desde [postman](https://www.postman.com), la Api debe de incluri los parámetros requeridos por la Lambda:
+	
 	URL de la Api sola:
 	https://5kuqiys8a3.execute-api.us-east-1.amazonaws.com/default/BancoCerebralGitHubApiOctokitNode
 
 	URL de la Api con los parámetros requeridos:
+ 	https://1tt9cs7gxe.execute-api.us-east-1.amazonaws.com/default/inviteGitHubPrivateRepositories_node_octokit?repository=test_octokit&usernameToAuthorize=cxxxjxxxr
 	
 <img  src="imagenes/llamada_a_la_API_AWS_desde_postman.png" align="right" border="1" width="400" height="240">
 
