@@ -1,7 +1,11 @@
 Repositorio de prueba, para estudiar como funciona la librería Octokit e interactuar con `GitHub`
 
+### Ejemplo:
+Una manera rápida de compartir un código almacenado en un repositorio GitHub para que otro lo revise; manteniendo el repositorio privado. 
+Leer el código en línea es mucho más conveniente que descargar un archivo zip para un tercero.
+La función AWS Lambda creada junto con la API asociada, envía una invitación para que un usuario GitHub pueda acceder a un repositorio privado.
 
-# Como usar AWS LAmbda con Node y Octokit:
+# Como usar AWS Lambda con Node y Octokit:
 
 <img  src="imagenes/diagrama_Lambda.png" align="right" border="1" width="400" height="240">
 
