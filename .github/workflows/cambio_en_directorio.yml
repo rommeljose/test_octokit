@@ -1,25 +1,27 @@
-name: GitHub Actions on Directory Change
-
-on:
-  push:
-    paths:
-      - 'imagenes/**'
-
 jobs:
-  Notify-on-Imagenes-Change:
+  my-job:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: Notify on imagenes directory change
-      #  run: echo "ℹ️ Someone added/modified files in the 'imagenes' directory!"
-
+      - name: Get list of changed files
         run: |
-          CHANGES=true
-          if $CHANGES; then
-            echo "🎉 Changes detected in 'imagenes':"
-            echo "$CHANGES"
-          else
-            echo "✅ No changes in 'imagenes'."
-          fi
+          CHANGED_FILES=$(git diff --name-only ${{ github.sha }} ${{ github.sha_before }})
+          echo "Changed files:"
+          echo "$CHANGED_FILES"
+        id: get-changed-files
+
+      - name: Filter files in 'imagenes/' directory
+        run: |
+          IMAGENES_FILES=$(echo "$CHANGED_FILES" | grep '^imagenes/')
+          echo "Files in 'imagenes/':"
+          echo "$IMAGENES_FILES"
+        id: filter-imagenes-files
+
+      - name: Set output variable
+        run: echo "CHANGES=${{ steps.filter-imagenes-files.outputs.IMAGENES_FILES }}" >> $GITHUB_ENV
+
+      # Ahora puedes usar la variable ${{ env.CHANGES }} en otros pasos del mismo trabajo.
+      # ...
+
