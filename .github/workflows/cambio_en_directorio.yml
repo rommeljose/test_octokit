@@ -20,15 +20,15 @@ jobs:
           echo "$CHANGED_FILES"
         id: get-changed-files
 
-      - name: Filter files in 'imagenes/' directory
-        run: |
-          IMAGENES_FILES=$(echo "$CHANGED_FILES" | grep '^imagenes/')
-          echo "Files in 'imagenes/':"
-          echo "$IMAGENES_FILES"
-        id: filter-imagenes-files
+      #- name: Filter files in 'imagenes/' directory
+      #  run: |
+      #    IMAGENES_FILES=$(echo "$CHANGED_FILES" | grep '^imagenes/')
+      #    echo "Files in 'imagenes/':"
+      #    echo "$IMAGENES_FILES"
+      #  id: filter-imagenes-files
 
-      - name: Set output variable
-        run: echo "CHANGES=${{ steps.filter-imagenes-files.outputs.IMAGENES_FILES }}" >> $GITHUB_ENV
+      #- name: Set output variable
+      #  run: echo "CHANGES=${{ steps.filter-imagenes-files.outputs.IMAGENES_FILES }}" >> $GITHUB_ENV
 
       # Ahora puedes usar la variable ${{ env.CHANGES }} en otros pasos del mismo trabajo.
       # ...
