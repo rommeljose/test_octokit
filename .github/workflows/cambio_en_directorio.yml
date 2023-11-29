@@ -1,0 +1,16 @@
+name: GitHub Actions on Directory Change
+
+on:
+  push:
+    paths:
+      - 'imagenes/**'
+
+jobs:
+  Notify-on-Directory-Change:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Notify on directory change
+        run: echo "ℹ️ Someone added/modified files in the 'mi_directorio' directory!"
