@@ -22,12 +22,12 @@ jobs:
           # Obtener la lista de archivos afectados por la última confirmación
           CHANGED_FILES=$(git diff --name-only $LAST_COMMIT^..$LAST_COMMIT | grep '^imagenes/')
           
-          echo "Changed files in 'imagenes/':"
-          echo "$CHANGED_FILES"
-        id: get-changed-files
+       #   echo "Changed files in 'imagenes/':"
+       #   echo "$CHANGED_FILES"
+       # id: get-changed-files
 
-      - name: Set output variable
-        run: echo "CHANGES=${{ steps.get-changed-files.outputs.CHANGED_FILES }}" >> $GITHUB_ENV
+      #- name: Set output variable
+      #  run: echo "CHANGES=${{ steps.get-changed-files.outputs.CHANGED_FILES }}" >> $GITHUB_ENV
 
       # Ahora puedes usar la variable ${{ env.CHANGES }} en otros pasos del mismo trabajo.
       # ...
