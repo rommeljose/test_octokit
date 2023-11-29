@@ -10,25 +10,22 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v2
 
       - name: Get list of changed files
         run: |
-          PREVIOUS_COMMIT=$(git log -n 1 --pretty=format:%H | tail -n 1)
-          CHANGED_FILES=$(git diff --name-only $PREVIOUS_COMMIT..HEAD)
-          echo "Changed files:"
+          # Obtener la SHA-1 de la última confirmación
+          LAST_COMMIT=$(git log -n 1 --pretty=format:%H)
+
+          # Obtener la lista de archivos afectados por la última confirmación
+          CHANGED_FILES=$(git log --name-only --pretty=format: $LAST_COMMIT^..$LAST_COMMIT | grep '^imagenes/')
+          
+          echo "Changed files in 'imagenes/':"
           echo "$CHANGED_FILES"
         id: get-changed-files
 
-      #- name: Filter files in 'imagenes/' directory
-      #  run: |
-      #    IMAGENES_FILES=$(echo "$CHANGED_FILES" | grep '^imagenes/')
-      #    echo "Files in 'imagenes/':"
-      #    echo "$IMAGENES_FILES"
-      #  id: filter-imagenes-files
-
-      #- name: Set output variable
-      #  run: echo "CHANGES=${{ steps.filter-imagenes-files.outputs.IMAGENES_FILES }}" >> $GITHUB_ENV
+      - name: Set output variable
+        run: echo "CHANGES=${{ steps.get-changed-files.outputs.CHANGED_FILES }}" >> $GITHUB_ENV
 
       # Ahora puedes usar la variable ${{ env.CHANGES }} en otros pasos del mismo trabajo.
       # ...
