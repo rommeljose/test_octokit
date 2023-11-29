@@ -6,11 +6,23 @@ on:
       - 'imagenes/**'
 
 jobs:
-  Notify-on-Directory-Change:
+  Notify-and-Email-on-Imagenes-Change:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: Notify on directory change
-        run: echo "ℹ️ Someone added/modified files in the 'mi_directorio' directory!"
+      - name: Notify on imagenes directory change
+        run: |
+          CHANGES=$(git diff --name-only ${{ github.sha }} ${{ github.sha_before }} | grep '^imagenes/')
+          if [ -n "$CHANGES" ]; then
+            echo "🎉 Changes detected in 'imagenes':"
+            echo "$CHANGES"
+            # Puedes agregar pasos adicionales aquí para manejar la lógica específica de los cambios.
+            echo "Sending notification email..."
+            echo "Changes in 'imagenes':" >> email_body.txt
+            echo "$CHANGES" >> email_body.txt
+            cat email_body.txt | mail -s "Changes in 'imagenes'" rommeljose@gmail.com
+          else
+            echo "✅ No changes in 'imagenes'."
+          fi
