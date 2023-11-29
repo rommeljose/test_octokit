@@ -23,9 +23,9 @@ jobs:
           #CHANGED_FILES=$(git log -n 1 --pretty=format:%H)~1..HEAD | grep '^imagenes/')
           CHANGED_FILES=$(git diff --name-only $LAST_COMMIT~1..HEAD | grep '^imagenes/')
           
-       #   echo "Changed files in 'imagenes/':"
-       #   echo "$CHANGED_FILES"
-       # id: get-changed-files
+          echo "Changed files in 'imagenes/':"
+          echo "$CHANGED_FILES"
+        id: get-changed-files
 
       #- name: Set output variable
       #  run: echo "CHANGES=${{ steps.get-changed-files.outputs.CHANGED_FILES }}" >> $GITHUB_ENV
