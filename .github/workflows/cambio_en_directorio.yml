@@ -6,7 +6,7 @@ on:
       - 'imagenes/**'
 
 jobs:
-  Notify-and-Email-on-Imagenes-Change:
+  Notify-on-Imagenes-Change:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
@@ -18,11 +18,13 @@ jobs:
           if [ -n "$CHANGES" ]; then
             echo "🎉 Changes detected in 'imagenes':"
             echo "$CHANGES"
-            # Puedes agregar pasos adicionales aquí para manejar la lógica específica de los cambios.
-            echo "Changes in 'imagenes':" > email_body.txt
-            echo "$CHANGES" >> email_body.txt
-            cat email_body.txt | mail -s "Changes in 'imagenes'" rommeljose@gmail.com || exit 0
+            
+            # Iterar sobre los archivos modificados para obtener detalles
+            IFS=$'\n' read -rd '' -a CHANGES_ARRAY <<<"$CHANGES"
+            for FILE in "${CHANGES_ARRAY[@]}"; do
+              echo "ℹ️ Changes in $FILE:"
+              git diff ${{ github.sha }} ${{ github.sha_before }} -- "$FILE"
+            done
           else
             echo "✅ No changes in 'imagenes'."
           fi
-
