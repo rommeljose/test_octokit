@@ -19,10 +19,10 @@ jobs:
             echo "🎉 Changes detected in 'imagenes':"
             echo "$CHANGES"
             # Puedes agregar pasos adicionales aquí para manejar la lógica específica de los cambios.
-            echo "Sending notification email..."
-            echo "Changes in 'imagenes':" >> email_body.txt
+            echo "Changes in 'imagenes':" > email_body.txt
             echo "$CHANGES" >> email_body.txt
-            cat email_body.txt | mail -s "Changes in 'imagenes'" rommeljose@gmail.com
+            cat email_body.txt | mail -s "Changes in 'imagenes'" rommeljose@gmail.com || exit 0
           else
             echo "✅ No changes in 'imagenes'."
           fi
+
