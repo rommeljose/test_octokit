@@ -6,13 +6,13 @@ on:
       - 'imagenes/**'
 
 jobs:
-  Notify-on-Imagenes-Change:
+  Notify-and-Show-Changes:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: Notify on imagenes directory change
+      - name: Notify and show changes in imagenes directory
         run: |
           CHANGES=$(git diff --name-only ${{ github.sha }} ${{ github.sha_before }} | grep '^imagenes/')
           if [ -n "$CHANGES" ]; then
