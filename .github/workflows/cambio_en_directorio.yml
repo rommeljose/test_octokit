@@ -20,7 +20,7 @@ jobs:
           LAST_COMMIT=$(git rev-parse HEAD)
           
           # Obtener la lista de archivos afectados por la última confirmación
-          CHANGED_FILES=$(git diff --name-only $LAST_COMMIT^..$LAST_COMMIT | grep '^imagenes/')
+          CHANGED_FILES=$(git log -n 1 --pretty=format:%H)~1..HEAD | grep '^imagenes/')
           
        #   echo "Changed files in 'imagenes/':"
        #   echo "$CHANGED_FILES"
