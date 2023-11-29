@@ -10,11 +10,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Get list of changed files
         run: |
-          CHANGED_FILES=$(git diff --name-only HEAD^..HEAD)
+          # Obtener la revisión anterior si está disponible, de lo contrario, usar HEAD
+          PREVIOUS_COMMIT=$(git rev-parse HEAD^ 2>/dev/null || echo ${{ github.sha }})
+          CHANGED_FILES=$(git diff --name-only $PREVIOUS_COMMIT..HEAD)
           IMAGENES_FILES=$(echo "$CHANGED_FILES" | grep '^imagenes/')
           echo "Changed files in 'imagenes/':"
           echo "$IMAGENES_FILES"
