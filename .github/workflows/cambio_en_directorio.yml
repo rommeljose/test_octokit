@@ -14,8 +14,8 @@ jobs:
 
       - name: Get list of changed files
         run: |
-          # Obtener la revisión anterior si está disponible, de lo contrario, usar HEAD
-          PREVIOUS_COMMIT=$(git rev-parse HEAD^ 2>/dev/null || echo ${{ github.sha }})
+          # Obtener la SHA-1 de la segunda confirmación más reciente como revisión anterior
+          PREVIOUS_COMMIT=$(git log -n 2 --pretty=format:%H | tail -n 1)
           CHANGED_FILES=$(git diff --name-only $PREVIOUS_COMMIT..HEAD)
           IMAGENES_FILES=$(echo "$CHANGED_FILES" | grep '^imagenes/')
           echo "Changed files in 'imagenes/':"
