@@ -13,7 +13,4 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Notify on imagenes directory change
-        uses: actions/checkout@v4
-      - run: echo "ℹ️ Someone added/modified files in the 'imagenes' directory!"
-      - run: CHANGES=$(git diff --name-only ${{ github.sha }} ${{ github.sha_before }} | grep '^imagenes/')
-      - run: echo "$CHANGES"
+        run: echo "ℹ️ Someone added/modified files in the 'imagenes' directory!"
