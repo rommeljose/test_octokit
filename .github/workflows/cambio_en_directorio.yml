@@ -1,34 +1,27 @@
-name: GitHub Actions on Directory Change
+name: GitHub Actions Example
 
 on:
   push:
     paths:
-      - 'imagenes/**'
+      - '**/*'
 
 jobs:
-  my-job:
+  detect-changes:
     runs-on: ubuntu-latest
     steps:
-      - name: Check out repository code
-        uses: actions/checkout@v4
+      - name: Checkout repository code
+        uses: actions/checkout@v2
 
       - name: Get list of changed files
         run: |
-          CHANGED_FILES=$(git diff --name-only ${{ github.sha }} ${{ github.sha_before }})
-          echo "Changed files:"
-          echo "$CHANGED_FILES"
+          CHANGED_FILES=$(git diff --name-only HEAD^..HEAD)
+          IMAGENES_FILES=$(echo "$CHANGED_FILES" | grep '^imagenes/')
+          echo "Changed files in 'imagenes/':"
+          echo "$IMAGENES_FILES"
         id: get-changed-files
 
-      #- name: Filter files in 'imagenes/' directory
-      #  run: |
-      #    IMAGENES_FILES=$(echo "$CHANGED_FILES" | grep '^imagenes/')
-      #    echo "Files in 'imagenes/':"
-      #    echo "$IMAGENES_FILES"
-      #  id: filter-imagenes-files
-
-      #- name: Set output variable
-      #  run: echo "CHANGES=${{ steps.filter-imagenes-files.outputs.IMAGENES_FILES }}" >> $GITHUB_ENV
+      - name: Set output variable
+        run: echo "CHANGES=${{ steps.get-changed-files.outputs.IMAGENES_FILES }}" >> $GITHUB_ENV
 
       # Ahora puedes usar la variable ${{ env.CHANGES }} en otros pasos del mismo trabajo.
       # ...
-
