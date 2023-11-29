@@ -10,15 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4  # Asegúrate de utilizar la versión más reciente
+        with:
+          fetch-depth: 0  # Necesario para obtener todas las revisiones
 
       - name: Get list of changed files
         run: |
           # Obtener la SHA-1 de la última confirmación
-          LAST_COMMIT=$(git log -n 1 --pretty=format:%H)
+          LAST_COMMIT=$(git rev-parse HEAD)
           
           # Obtener la lista de archivos afectados por la última confirmación
-          CHANGED_FILES=$(git log --name-only --pretty=format: $LAST_COMMIT^..$LAST_COMMIT | grep '^imagenes/')
+          CHANGED_FILES=$(git diff --name-only $LAST_COMMIT^..$LAST_COMMIT | grep '^imagenes/')
           
           echo "Changed files in 'imagenes/':"
           echo "$CHANGED_FILES"
