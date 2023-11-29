@@ -1,4 +1,4 @@
-name: GitHub Actions Example
+name: Detecta modificación en Repositorio GitHub
 
 on:
   push:
