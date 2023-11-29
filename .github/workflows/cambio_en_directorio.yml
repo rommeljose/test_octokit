@@ -6,25 +6,11 @@ on:
       - 'imagenes/**'
 
 jobs:
-  Notify-and-Show-Changes:
+  Notify-on-Imagenes-Change:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
 
-      - name: Notify and show changes in imagenes directory
-        run: |
-          CHANGES=$(git diff --name-only ${{ github.sha }} ${{ github.sha_before }} | grep '^imagenes/')
-          if [ -n "$CHANGES" ]; then
-            echo "🎉 Changes detected in 'imagenes':"
-            echo "$CHANGES"
-            
-            # Iterar sobre los archivos modificados para obtener detalles
-            IFS=$'\n' read -rd '' -a CHANGES_ARRAY <<<"$CHANGES"
-            for FILE in "${CHANGES_ARRAY[@]}"; do
-              echo "ℹ️ Changes in $FILE:"
-              git diff ${{ github.sha }} ${{ github.sha_before }} -- "$FILE"
-            done
-          else
-            echo "✅ No changes in 'imagenes'."
-          fi
+      - name: Notify on imagenes directory change
+        run: echo "ℹ️ Someone added/modified files in the 'imagenes' directory!"
