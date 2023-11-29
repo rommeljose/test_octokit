@@ -16,9 +16,9 @@ jobs:
         run: |
           # Obtener la SHA-1 de la última confirmación
           LAST_COMMIT=$(git log -n 1 --pretty=format:%H)
-
+          
           # Obtener la lista de archivos afectados por la última confirmación
-          CHANGED_FILES=$(git log --name-only --pretty=format: $LAST_COMMIT^..$LAST_COMMIT | grep '^imagenes/')
+          CHANGED_FILES=$(git diff --name-only $LAST_COMMIT^..$LAST_COMMIT | grep '^imagenes/')
           
           echo "Changed files in 'imagenes/':"
           echo "$CHANGED_FILES"
